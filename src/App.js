@@ -37,7 +37,7 @@ gettingWeather = async (event) => {
 clean = async (e) => {
   document.getElementById('root').innerHTML="";
 }
-  render(){
+  render()   {
     return(
       <div>
       <div className="wrapper">
