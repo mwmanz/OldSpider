@@ -4,9 +4,8 @@ const Cab = props => (
   <div className="cab">
 {props.date &&
   <div>
-  <p>publishedDate: {props.publishedDate}</p>
-  <p>forecast: {props.forecastSummary}</p>
-  <p>future foreacast: {props.forecastFuture}</p>
+  <p className="st">today: {props.forecastSummary}</p>
+  <p className="st">tomorrow: {props.forecastFuture}</p>
   </div>
 }
   </div>

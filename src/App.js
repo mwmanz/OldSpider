@@ -2,9 +2,13 @@ import React from "react";
 import Info from "./components/info";
 import Form from "./components/form";
 import Cab from "./components/cab";
+import Next from "./components/next";
+import Navbar from "./components/navbar";
+import Bike from "./components/bike";
 
 const Api_key = "ef1650c0b7f9d80494144db9a6d5713d";
 const app_id = "d520140b";
+
 
 class App extends React.Component {
 
@@ -32,23 +36,34 @@ gettingWeather = async (event) => {
   publishedDate: data.currentForecast[0].publishedDate,
   forecastFuture: data.currentForecast[1].forecastSummary
   });
+
+}
+
+bikeInfo = async (e) =>{
+  e.preventDefault();
+  const pointName = e.target.elements.place.value;
+  const bikeUrl = await fetch(`https://api.tfl.gov.uk/BikePoint/Search?query=${pointName}`);
+  const bikeData = await bikeUrl.json();
+  console.log(bikeData);
+
+
 }
 
 clean = async (e) => {
   document.getElementById('root').innerHTML="";
 }
+
+info = async (e) => {
+  alert(" It's my little react project. Take me to work)" );
+}
   render()   {
     return(
       <div>
+      <Navbar />
       <div className="wrapper">
-      <div className="main">
-<div className="container">
-<div className="row">
-<div className="col-sm-5 info ">
-<Info />
-</div>
-<div className="col-sm-7 form">
-<Form weatherMethod={this.gettingWeather} />
+<Form weatherMethod={this.gettingWeather}
+bikeMethod={this.bikeInfo}
+ />
 <Cab
 updatePeriod={this.state.updatePeriod}
 forecastSummary={this.state.forecastSummary}
@@ -57,11 +72,10 @@ date={this.state.date}
 publishedDate={this.state.publishedDate}
 forecastFuture={this.state.forecastFuture}
 />
+<Next weatherMethod={this.gettingWeather}
+forecastFuture={this.state.forecastFuture}
+/>
 </div>
-</div>
-  </div>
-      </div>
-      </div>
 </div>
     );
   }
